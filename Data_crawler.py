@@ -32,7 +32,7 @@ def crawler_open_chrome():
     c.add_argument("--incognito")
     driver = webdriver.Chrome(ChromeDriverManager().install(),options=c)
     driver.implicitly_wait(0.5)
-    url = "https://www.jotform.com/login/"
+    url = "<your url>"
     driver.get(url.format(q='Car'))
     driver.maximize_window()
     time.sleep(5)
