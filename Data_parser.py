@@ -6,7 +6,7 @@ from os.path import isfile, join
 #https://form.jotform.com/archanr/get_to_know_us_form
 
 def read_crawled_data():
-    abs_path = r"C:\Users\archanr\Downloads"
+    abs_path = r"<your file path>"
     onlyfiles = [f for f in listdir(abs_path) if isfile(join(abs_path, f))]
     file_re = re.compile(r'^Get_to_know_us_form\d{4}-\d{2}-\d{2}_\d{2}_\d{2}_\d{2}.csv$')
     filtered_files = [ x for x in onlyfiles if file_re.match(x)]
