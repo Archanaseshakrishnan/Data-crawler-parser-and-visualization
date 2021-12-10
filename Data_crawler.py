@@ -20,8 +20,8 @@ def crawler_download_table(driver):
     time.sleep(15)
 
 def crawler_insert_data_to_login(driver):
-    usrName = 'archanr@synopsys.com'
-    password = 'IWillSucceed1$'
+    usrName = '<your username>'
+    password = '<your password>'
     driver.find_element_by_name('email').send_keys(usrName)
     driver.find_element_by_id('password').send_keys(password)
     driver.find_element_by_id('signinButton').click()
