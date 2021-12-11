@@ -45,7 +45,7 @@ def generate_graph(connection_matrix, ValueBucket, UserName_to_index):
     got_net = Network(height='100%', width='100%', bgcolor='#222222', font_color='white')
     #got_net.force_atlas_2based(spring_length=1000, spring_strength=0.001, gravity=-80000, central_gravity=0.3, damping=0.09, overlap=0)
     got_net.barnes_hut(gravity=-80000, central_gravity=0.3, spring_length=300, spring_strength=0.001, damping=0.09, overlap=0)
-    base_path = r"C:\Users\archanr\OneDrive - Synopsys, Inc\Desktop\I&D Taskforce members\\"
+    base_path = r"<photos path>"
     image_list = listdir(base_path)
     #print(image_list)
     for k,v in UserName_to_index.items():
