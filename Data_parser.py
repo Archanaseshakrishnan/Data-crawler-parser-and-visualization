@@ -9,7 +9,7 @@ def read_crawled_data():
     abs_path = r"<your file path>"
     onlyfiles = [f for f in listdir(abs_path) if isfile(join(abs_path, f))]
     file_re = re.compile(r'^Get_to_know_us_form\d{4}-\d{2}-\d{2}_\d{2}_\d{2}_\d{2}.csv$')
-    filtered_files = [ x for x in onlyfiles if file_re.match(x)]
+    filtered_files = [x for x in onlyfiles if file_re.match(x)]
     sorted_files = sorted(filtered_files,reverse=True)
     got_data = pd.read_csv(abs_path+"\\"+sorted_files[0])
     return got_data
@@ -31,6 +31,9 @@ def generate_column_names_and_users_list(got_data):
         column_names.append(columnName)
         if columnName.find('name') != -1:
             name_col_title = columnName
+            got_data[name_col_title] = got_data[name_col_title].str.lower()
+            got_data[name_col_title] = got_data[name_col_title].str.replace(' ','')
+            got_data = got_data.drop_duplicates(subset=name_col_title, keep="last")
             Users = list(set(columnData))
             Users.sort()
             uindex = 0
@@ -39,9 +42,7 @@ def generate_column_names_and_users_list(got_data):
                     continue
                 UserName_to_index[user] = uindex
                 uindex += 1
-    print(column_names)
-    print(UserName_to_index)
-    return name_col_title, column_names, UserName_to_index
+    return name_col_title, column_names, UserName_to_index, got_data
 
 def postprocess_crawled_data(got_data, name_col_title):
     got_data = got_data.dropna(subset=[name_col_title])
@@ -50,7 +51,7 @@ def postprocess_crawled_data(got_data, name_col_title):
 def parser_main():
     got_data = read_crawled_data()
     got_data = preprocess_crawled_data(got_data)
-    name_col_title, column_names, UserName_to_index = generate_column_names_and_users_list(got_data)
+    name_col_title, column_names, UserName_to_index, got_data = generate_column_names_and_users_list(got_data)
     number_of_users = len(UserName_to_index)
     got_data = postprocess_crawled_data(got_data, name_col_title)
     return got_data, number_of_users, name_col_title, column_names, UserName_to_index
